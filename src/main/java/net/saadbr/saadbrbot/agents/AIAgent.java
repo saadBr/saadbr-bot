@@ -3,6 +3,7 @@ package net.saadbr.saadbrbot.agents;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -30,9 +31,8 @@ public class AIAgent {
                 .defaultToolCallbacks(tools)
                 .build();
     }
-    public String sendMessage(String message) {
-        return chatClient.prompt()
-                .user(message)
+    public String sendMessage(Prompt prompt) {
+        return chatClient.prompt(prompt)
                 .call().content();
     }
 }
